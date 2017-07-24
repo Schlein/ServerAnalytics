@@ -1,0 +1,14 @@
+name: ServerAnalytics
+main: com.timschlein.serveranalytics.ServerAnalytics
+version: ${version}
+
+name: ServerAnalytics
+main: com.timschlein.serveranalytics.ServerAnalytics
+version: 1.0
+author: Schlein
+commands:
+   test:
+      description: This is a demo command.
+      usage: /test
+      permission: ServerAnalytics.test
+      permission-message: You don't have <permission>
