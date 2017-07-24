@@ -31,17 +31,7 @@ public class ServerAnalytics extends JavaPlugin{
 		
 		try {
 			openConnection();
-			DatabaseMetaData md = connection.getMetaData();
-			ResultSet rs = md.getTables(null, null, "PlayerProfiles", null);
 			createTable();
-			while (rs.next()) {
-				String tName = rs.getString("PlayerProfiles");
-				if (tName !=null && tName.equals("PlayerProfiles")) {
-					break;
-				} else {
-					createTable();
-				}
-			}
 //			Statement statement = connection.createStatement();
 		
 		} catch (ClassNotFoundException e) {
@@ -53,7 +43,7 @@ public class ServerAnalytics extends JavaPlugin{
 		getLogger().info("onEnable has been invoked!");
 	}
 	private void createTable() {
-		String setupTable = "CREATE TABLE PlayerProfiles " + "(id INTEGER not NULL)";
+		String setupTable = "CREATE TABLE IF NOT EXISTS PlayerProfiles " + "(id INTEGER not NULL)";
 		Statement stmt = null;
 		try {
 			stmt = connection.createStatement();
