@@ -32,7 +32,10 @@ public static void connect() {
 	}
 	}
 public static void createTable() {
-	String setupTable = "CREATE TABLE IF NOT EXISTS PlayerProfiles " + "(id INTEGER not NULL)";
+	String setupTable = "CREATE TABLE IF NOT EXISTS PlayerProfiles " + "(id INTEGER not NULL,"  + "username VARCHAR(30), "  + "UUID VARCHAR(30), " + "ip VARCHAR(30))";
+	
+//	not NULL"; 
+//+ "ip VARCHAR(30)";
 	Statement stmt = null;
 	try {
 		stmt = connection.createStatement();
@@ -47,8 +50,6 @@ public static void openConnection() throws SQLException, ClassNotFoundException 
     if (connection != null && !connection.isClosed()) {
         return;
     }
- 
- 
         if (connection != null && !connection.isClosed()) {
             return;
         } 

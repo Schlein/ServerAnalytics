@@ -1,2 +1,3 @@
-com/timschlein/serveranalytics/DBSetup.class
+com/timschlein/serveranalytics/OnJoin.class
 com/timschlein/serveranalytics/ServerAnalytics.class
+com/timschlein/serveranalytics/DBSetup.class
