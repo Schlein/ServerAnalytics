@@ -24,7 +24,7 @@ public static void connect() {
 		openConnection();
 		createTable();
 //		Statement statement = connection.createStatement();
-	
+		
 	} catch (ClassNotFoundException e) {
 		e.printStackTrace();
 	} catch (SQLException e) {
@@ -32,7 +32,7 @@ public static void connect() {
 	}
 	}
 public static void createTable() {
-	String setupTable = "CREATE TABLE IF NOT EXISTS PlayerProfiles " + "(id INTEGER not NULL,"  + "username VARCHAR(30), "  + "UUID VARCHAR(30), " + "ip VARCHAR(30))";
+	String setupTable = "CREATE TABLE IF NOT EXISTS PlayerProfiles " + "(id INTEGER not NULL,"  + "username VARCHAR(36), "  + "UUID VARCHAR(36), " + "ip VARCHAR(30))";
 	
 //	not NULL"; 
 //+ "ip VARCHAR(30)";
