@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 
-public final class OnJoin implements Listener {
-	public OnJoin (ServerAnalytics plugin) {
+public final class JoinInformation implements Listener {
+	int timesJoined;
+	public JoinInformation (ServerAnalytics plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 
@@ -22,26 +22,16 @@ public final class OnJoin implements Listener {
 
 
 		Player player = event.getPlayer();
-		if (player.hasPlayedBefore() == true) {	
-			
+		if (player.hasPlayedBefore() == false) {	
+			timesJoined = 1;
 			String username = player.getDisplayName();
 			System.out.println(username);
 			String uuid = player.getUniqueId().toString();
 			System.out.println(uuid);
-			String ip = player.getAddress().toString();
-			String formattedIP = ip.replace("/", "");
-			formattedIP = formattedIP.split(":")[0];
-
-			String firstJoinDate = java.time.LocalDate.now().toString();
-			System.out.println(formattedIP);
-
-			String query = "INSERT INTO PlayerProfiles " + "(username, UUID, ip, firstJoinDate) VALUES (" 
+			String query = "INSERT INTO ServerData " + "(username, UUID, timesJoined) VALUES (" 
 					+ "'" + username + "'" + ", " 
-					+ "'" + uuid + "'" + ", " 
-					+ "'" + formattedIP + "'" + ", " 
-					+ "'" + firstJoinDate + "'" + ");";
-
-			System.out.println(query);
+					+ "'" + uuid + "'" +  ", " 
+					+ timesJoined + ");"; 
 			DBConnection db = new DBConnection("198.143.155.98", "3306", "mc114471", "mc114471", "4a19d822c3");
 			Connection c = null;
 			try {
@@ -56,6 +46,32 @@ public final class OnJoin implements Listener {
 				System.out.println("Could not connect");
 
 			}
-		} 
+			
+		} else {
+			String playerName = "'" + player.getDisplayName() + "'";
+			timesJoined++;
+			System.out.println(timesJoined);
+			String query = "UPDATE ServerData SET" + " timesJoined = "  
+					+ timesJoined + " WHERE username" +  " = " + playerName + ";";
+			DBConnection db = new DBConnection("198.143.155.98", "3306", "mc114471", "mc114471", "4a19d822c3");
+			Connection c = null;
+			try {
+				c = db.openConnection();
+				System.out.println("hello world");
+				Statement statement = c.createStatement();
+				statement.executeUpdate(query);
+				c.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Could not connect");
+
+			}
+			System.out.println(query);
+			
+			
+		}
+		
 	}
 }
+

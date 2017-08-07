@@ -20,13 +20,15 @@ public class ServerAnalytics extends JavaPlugin{
 		try {
 			c = db.openConnection();
 			Statement statement = c.createStatement();
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS PlayerProfiles " + "("  + "username VARCHAR(36), "  + "UUID VARCHAR(36), " + "ip VARCHAR(30), " + "firstJoinDate VARCHAR(36), " + "timesJoined INT);");
-			
+			Statement statement2 = c.createStatement();
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS PlayerProfiles " + "("  + "username VARCHAR(36), "  + "UUID VARCHAR(36), " + "ip VARCHAR(30), " + "firstJoinDate VARCHAR(36));");
+			statement2.executeUpdate("CREATE TABLE IF NOT EXISTS ServerData " + "("  + "username VARCHAR(36), "  + "UUID VARCHAR(36), " + "timesJoined INT);");
 		} catch (Exception e) {
 			System.out.println("Could not connect");
 			
 		}
 		new OnJoin(this);
+		new JoinInformation(this);
 		
 		getLogger().info("onEnable has been invoked!");
 		//		DBSetup.connect();
